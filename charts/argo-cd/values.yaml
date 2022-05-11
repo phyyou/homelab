@@ -1,0 +1,75 @@
+argo-cd:
+  dex:
+    enabled: false
+  server:
+    extraArgs:
+      - --insecure
+
+    additionalApplications:
+      # Self-managed ArgoCD
+      - name: argo-cd
+        namespace: argocd
+        destination:
+          namespace: argocd
+          server: https://kubernetes.default.svc
+        project: argocd
+        source:
+          path: charts/argo-cd
+          # This repo
+          repoURL: https://github.com/phyyou/homelab.git
+          targetRevision: HEAD
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+        #   syncOptions:
+        #   - CreateNamespace=true
+
+    additionalProjects:
+      - name: argocd
+        namespace: argocd
+        additionalLabels: {}
+        additionalAnnotations: {}
+        description: ArgoCD Project
+        sourceRepos:
+          - "*"
+        destinations:
+          - namespace: argocd
+            server: https://kubernetes.default.svc
+        clusterResourceWhitelist:
+          - group: "*"
+            kind: "*"
+        orphanedResources:
+          warn: false
+
+    # Ingress: argocd.home.phyyou.com
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        kubernetes.io/tls-acme: "true"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      labels: {}
+      ingressClassName: "nginx"
+      hosts:
+        - argocd.home.phyyou.com
+      paths:
+        - /
+      pathType: Prefix
+      extraPaths: []
+      tls:
+        - hosts:
+            - argocd.home.phyyou.com
+          secretName: argocd-secret # do not change, this is provided by Argo CD
+
+  # Replace ApplicationSet image with arm64 built one until official one is ready
+  # Ref. https://github.com/argoproj/argo-cd/issues/8394
+  applicationSet:
+    image:
+      # -- Repository to use for the application set controller
+      repository: ghcr.io/jr64/argocd-applicationset
+      # -- Image pull policy for the application set controller
+      pullPolicy: IfNotPresent
+      # -- Tag to use for the application set controller
+      tag: "v0.4.0"
