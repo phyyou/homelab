@@ -8,6 +8,7 @@ argo-cd:
       annotations:
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       labels: {}
       ingressClassName: "nginx"
       hosts:
@@ -16,6 +17,10 @@ argo-cd:
         - /
       pathType: Prefix
       extraPaths: []
+      tls:
+        - hosts:
+            - argocd.phyyou.com
+          secretName: argocd-secret
       https: true
 
   # Replace ApplicationSet image with arm64 built one until official one is ready
