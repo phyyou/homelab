@@ -20,7 +20,7 @@ argo-cd:
       tls:
         - hosts:
             - argocd.phyyou.com
-          secretName: argocd-secret
+          secretName: argocd-server-tls
       https: true
 
   # Replace ApplicationSet image with arm64 built one until official one is ready
