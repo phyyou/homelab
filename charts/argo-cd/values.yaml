@@ -2,26 +2,20 @@ argo-cd:
   dex:
     enabled: false
   server:
-    # Ingress: argocd.home.phyyou.com
+    # Ingress: argocd.phyyou.com
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        kubernetes.io/tls-acme: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       labels: {}
       ingressClassName: "nginx"
       hosts:
-        - argocd.home.phyyou.com
+        - argocd.phyyou.com
       paths:
         - /
       pathType: Prefix
       extraPaths: []
-      tls:
-        - hosts:
-            - argocd.home.phyyou.com
-          secretName: argocd-secret # do not change, this is provided by Argo CD
       https: true
 
   # Replace ApplicationSet image with arm64 built one until official one is ready
