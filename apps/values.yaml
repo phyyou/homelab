@@ -1,6 +1,7 @@
 spec:
   destination:
     server: https://kubernetes.default.svc
+  project: default
   source:
     repoURL: https://github.com/phyyou/homelab.git
     targetRevision: HEAD
