@@ -46,6 +46,8 @@ spec:
               value: "postgres"
             - name: POSTGRES_DB
               value: "postgres"
+            - name: PROJECT_NAME
+              value: "eggjam-backend"
           livenessProbe:
             httpGet:
               path: /
