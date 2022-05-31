@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: eggjam-backend-db
   serviceName: eggjam-backend-db
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
