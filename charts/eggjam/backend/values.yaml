@@ -8,7 +8,7 @@ image:
   repository: ghcr.io/eggjamgame/quiz-backend
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.1.2"
+  tag: "$CODEBUILD_RESOLVED_SOURCE_VERSION"
 
 imagePullSecrets:
   - name: ghcr-cred
