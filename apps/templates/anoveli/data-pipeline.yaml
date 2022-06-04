@@ -11,7 +11,7 @@ spec:
     namespace: anoveli
   project: default
   source:
-    path: charts/anoveli/data-pipeline
+    path: charts/ANovelI/data-pipeline
     repoURL: https://github.com/phyyou/homelab.git
     targetRevision: HEAD
   syncPolicy:
