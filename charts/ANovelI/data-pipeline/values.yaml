@@ -1,0 +1,19 @@
+airflow:
+  data:
+    metadataConnection.host: anoveli-airflow-db.anoveli.svc.cluster.local
+
+  postgresql.enabled: false
+
+  statsd:
+    enabled: false
+
+  ingress:
+    web:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      enabled: true
+      hosts:
+        - airflow.anoveli.phyyou.com
+      ingressClassName: "nginx"
+      pathType: Prefix

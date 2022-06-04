@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: anoveli-airflow-db
+spec:
+  selector:
+    matchLabels:
+      app: anoveli-airflow-db
+  serviceName: anoveli-airflow-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: anoveli-airflow-db
+    spec:
+      containers:
+      - name: anoveli-airflow-db
+        image: postgres:13
+        ports:
+        - containerPort: 5432
+          name: anoveli-postgres
+        envFrom:
+            - configMapRef:
+                name: anoveli-postgres-config
+        volumeMounts:
+        - name: anoveli-airflow-db-pvc
+          mountPath: /var/lib/postgresql/data:z
+  volumeClaimTemplates:
+  - metadata:
+      name: anoveli-airflow-db-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 8Gi
