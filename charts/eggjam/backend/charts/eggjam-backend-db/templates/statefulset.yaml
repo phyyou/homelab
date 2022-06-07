@@ -24,7 +24,7 @@ spec:
                 name: eggjam-postgres-config
         volumeMounts:
         - name: eggjam-backend-db-pvc
-          mountPath: /var/lib/postgresql/data:z
+          mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
   - metadata:
       name: eggjam-backend-db-pvc
