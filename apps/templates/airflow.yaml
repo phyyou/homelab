@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: anoveli-data-pipeline
+  name: airflow
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: anoveli
+    namespace: airflow
   project: default
   source:
-    path: charts/ANovelI/data-pipeline
+    path: charts/airflow
     repoURL: https://github.com/phyyou/homelab.git
     targetRevision: HEAD
   syncPolicy:

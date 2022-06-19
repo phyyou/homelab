@@ -1,6 +1,6 @@
 airflow:
   data:
-    metadataConnection.host: anoveli-airflow-db.anoveli.svc.cluster.local
+    metadataConnection.host: airflow-db.airflow.svc.cluster.local
 
   postgresql.enabled: false
 

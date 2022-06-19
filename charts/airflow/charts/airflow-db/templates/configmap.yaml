@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: anoveli-postgres-config
+  name: airflow-postgres-config
   labels:
-    app: anoveli
+    app: airflow
 data:
   POSTGRES_DB: postgres
   POSTGRES_USER: postgres

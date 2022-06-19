@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: anoveli-airflow-db
+  name: airflow-db
 spec:
   selector:
-    app: anoveli-airflow-db
+    app: airflow-db
   ports:
     - port: 5432
       targetPort: 5432
