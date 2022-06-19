@@ -14,6 +14,6 @@ airflow:
         nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
       enabled: true
       hosts:
-        - airflow.anoveli.phyyou.com
+        - airflow.phyyou.com
       ingressClassName: "nginx"
       pathType: Prefix
