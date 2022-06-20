@@ -28,4 +28,4 @@ dependencies:
     version: 1.6.0
     repository: https://airflow.apache.org
   - name: airflow-db
-    repository: "https://github.com/phyyou/homelab/charts/airflow/charts"
+    repository: "https://github.com/phyyou/homelab/tree/main/charts/airflow/charts"
