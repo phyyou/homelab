@@ -10,17 +10,24 @@ spec:
       targetPort: 5432
   type: ClusterIP
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-eggjam-backend-db
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+  name: eggjam-backend
+  namespace: eggjam
 spec:
-  ingressClassName: nginx
   rules:
-  - host: eggjam-db.home.phyyou.com
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: eggjam-backend-db
-          servicePort: 5432
+    - host: db.eggjam.phyyou.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: eggjam-backend-db
+                port:
+                  number: 5432
+            path: /
+            pathType: Prefix
