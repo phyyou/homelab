@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: eggjam-backend-db
+  name: airflow-db
 spec:
   selector:
     matchLabels:
-      app: eggjam-backend-db
-  serviceName: eggjam-backend-db
+      app: airflow-db
+  serviceName: airflow-db
   replicas: 1
   template:
     metadata:
       labels:
-        app: eggjam-backend-db
+        app: airflow-db
     spec:
       containers:
-      - name: eggjam-backend-db
+      - name: airflow-db-postgres
         image: postgres:13
         ports:
         - containerPort: 5432
-          name: eggjam-postgres
+          name: airflow-psq
         envFrom:
             - configMapRef:
-                name: eggjam-postgres-config
+                name: airflow-postgres-config
         volumeMounts:
-        - name: eggjam-backend-db-pvc
+        - name: airflow-db-pvc
           mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
   - metadata:
-      name: eggjam-backend-db-pvc
+      name: airflow-db-pvc
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:

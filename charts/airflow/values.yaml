@@ -1,12 +1,11 @@
 airflow:
+  postgresql:
+    enabled: false
   data:
-    metadataConnection.host: airflow-db.airflow.svc.cluster.local
-
-  postgresql.enabled: false
-
+    metadataSecretName: airflow-db
+    resultBackendSecretName: airflow-result-db
   statsd:
     enabled: false
-
   ingress:
     web:
       annotations:
@@ -15,5 +14,13 @@ airflow:
       enabled: true
       hosts:
         - airflow.phyyou.com
-      ingressClassName: "nginx"
+      ingressClassName: ""
       pathType: Prefix
+  dags:
+    gitSync:
+      enabled: true
+      branch: main
+      repo: https://github.com/phyyou/SchoolFit-Airflow.git
+      rev: HEAD
+      depth: 1
+      subPath: dags
